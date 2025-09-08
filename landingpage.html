@@ -1,0 +1,907 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ember Studios - Premium Web Development Agency</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #B7472A;
+            --secondary: #8D3A1F;
+            --background: #0F0F0F;
+            --surface: #1E1E1E;
+            --text: #FFF3E0;
+            --accent: #FF8A65;
+            --gradient: linear-gradient(135deg, #B7472A 0%, #8D3A1F 100%);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--background);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(15, 15, 15, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1rem 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--text);
+            text-decoration: none;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background: var(--gradient);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background: radial-gradient(circle at 50% 50%, rgba(183, 71, 42, 0.1) 0%, transparent 70%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="%23B7472A" stroke-width="0.5" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+            animation: gridMove 20s linear infinite;
+        }
+
+        @keyframes gridMove {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(10px, 10px); }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            padding: 0 2rem;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: slideInLeft 1s ease-out 0.3s both;
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            animation: slideInRight 1s ease-out 0.6s both;
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: var(--gradient);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            animation: bounceIn 1s ease-out 0.9s both;
+        }
+
+        @keyframes bounceIn {
+            0% {
+                opacity: 0;
+                transform: scale(0.3);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+            70% {
+                transform: scale(0.9);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .cta-button:hover::before {
+            left: 100%;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(183, 71, 42, 0.3);
+        }
+
+        /* Section Styles */
+        .section {
+            padding: 6rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .section-title.animate {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Services Section */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .service-card {
+            background: var(--surface);
+            padding: 2rem;
+            border-radius: 15px;
+            border: 1px solid rgba(183, 71, 42, 0.2);
+            transition: all 0.3s ease;
+            opacity: 0;
+            transform: translateY(50px);
+        }
+
+        .service-card.animate {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary);
+            box-shadow: 0 20px 40px rgba(183, 71, 42, 0.2);
+        }
+
+        .service-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--gradient);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .service-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: var(--accent);
+        }
+
+        /* Portfolio Section */
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .portfolio-item {
+            background: var(--surface);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            opacity: 0;
+            transform: scale(0.9);
+            position: relative;
+        }
+
+        .portfolio-item.animate {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .portfolio-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 20px 40px rgba(183, 71, 42, 0.3);
+        }
+
+        .portfolio-image {
+            width: 100%;
+            height: 250px;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .portfolio-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><rect width="200" height="200" fill="%23B7472A"/><rect x="50" y="50" width="100" height="100" fill="%23FFF3E0" opacity="0.1"/><circle cx="100" cy="100" r="30" fill="%23FF8A65" opacity="0.3"/></svg>');
+            opacity: 0.3;
+        }
+
+        .portfolio-content {
+            padding: 1.5rem;
+        }
+
+        .portfolio-content h3 {
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+        }
+
+        .portfolio-tech {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .tech-tag {
+            background: rgba(183, 71, 42, 0.2);
+            color: var(--accent);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+        }
+
+        /* Team Section */
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .team-card {
+            text-align: center;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .team-card.animate {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .team-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: var(--gradient);
+            margin: 0 auto 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: white;
+            transition: all 0.3s ease;
+        }
+
+        .team-card:hover .team-avatar {
+            transform: scale(1.1);
+            box-shadow: 0 10px 30px rgba(183, 71, 42, 0.4);
+        }
+
+        /* Contact Section */
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .contact-form.animate {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--accent);
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 1rem;
+            background: var(--surface);
+            border: 1px solid rgba(183, 71, 42, 0.3);
+            border-radius: 10px;
+            color: var(--text);
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(183, 71, 42, 0.1);
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--surface);
+            text-align: center;
+            padding: 2rem;
+            margin-top: 4rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .section {
+                padding: 4rem 1rem;
+            }
+            
+            .services-grid,
+            .portfolio-grid,
+            .team-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Scroll animations */
+        .scroll-indicator {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateX(-50%) translateY(0);
+            }
+            40% {
+                transform: translateX(-50%) translateY(-10px);
+            }
+            60% {
+                transform: translateX(-50%) translateY(-5px);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">Ember Studios</div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#portfolio">Portfolio</a></li>
+                <li><a href="#team">Team</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>Crafting Digital Excellence</h1>
+            <p>We're a premium web development agency that transforms your vision into powerful, scalable digital experiences that drive real business results.</p>
+            <a href="#contact" class="cta-button">Start Your Project</a>
+        </div>
+        <div class="scroll-indicator">
+            <div style="color: var(--accent); font-size: 1.5rem;">↓</div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="section">
+        <h2 class="section-title">Our Expertise</h2>
+        <div class="services-grid">
+            <div class="service-card">
+                <div class="service-icon">🚀</div>
+                <h3>Web Development</h3>
+                <p>Custom websites and web applications built with modern technologies like React, Node.js, and cloud infrastructure for maximum performance and scalability.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">📱</div>
+                <h3>Mobile-First Design</h3>
+                <p>Responsive, mobile-optimized experiences that work flawlessly across all devices, ensuring your audience can engage with your brand anywhere.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">⚡</div>
+                <h3>Performance Optimization</h3>
+                <p>Lightning-fast loading times and smooth interactions through advanced optimization techniques, improving user experience and search rankings.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">🛡️</div>
+                <h3>Security & Maintenance</h3>
+                <p>Robust security implementations and ongoing maintenance to keep your digital assets protected and performing at their best.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">📊</div>
+                <h3>Analytics & Insights</h3>
+                <p>Comprehensive tracking and analytics setup to measure performance, understand user behavior, and drive data-informed decisions.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">🎨</div>
+                <h3>UI/UX Design</h3>
+                <p>Intuitive, conversion-focused designs that combine aesthetic appeal with user psychology to create engaging digital experiences.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="packages" style="padding:60px 20px; background: #0F0F0F;">
+        <h2 style="text-align:center; margin-bottom:40px; font-weight:bold; font-size:2.5rem; background: linear-gradient(135deg, #B7472A 0%, #8D3A1F 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Choose Your Perfect Package</h2>
+        <div class="packages-grid" style="display:grid; grid-template-columns: repeat(auto-fit,minmax(280px,1fr)); gap: 40px; max-width:1200px; margin:0 auto;">
+            
+            <div class="package-card animate-slide-up" style="background:#1E1E1E; padding:30px; border-radius:15px; box-shadow: 0 10px 30px rgba(183, 71, 42, 0.2); border: 2px solid rgba(183, 71, 42, 0.3); border-top: 5px solid #B7472A; transition: all 0.3s ease; color: #FFF3E0;">
+            <h3 style="color:#FF8A65; margin-bottom: 15px; font-size: 1.5rem;">Launchpad</h3>
+            <p style="margin-bottom: 20px; line-height: 1.6; color: rgba(255, 243, 224, 0.8);">Simple, elegant landing pages to get your brand online quickly and beautifully.</p>
+            <ul style="list-style: none; padding: 0; margin: 0;">
+                <li style="padding: 8px 0; position: relative; padding-left: 25px; color: #FFF3E0;">
+                <span style="position: absolute; left: 0; color: #FF8A65; font-weight: bold;">✓</span>
+                Custom Landing Page
+                </li>
+                <li style="padding: 8px 0; position: relative; padding-left: 25px; color: #FFF3E0;">
+                <span style="position: absolute; left: 0; color: #FF8A65; font-weight: bold;">✓</span>
+                Responsive & Mobile Optimized
+                </li>
+                <li style="padding: 8px 0; position: relative; padding-left: 25px; color: #FFF3E0;">
+                <span style="position: absolute; left: 0; color: #FF8A65; font-weight: bold;">✓</span>
+                Basic SEO Setup
+                </li>
+            </ul>
+            </div>
+
+            <div class="package-card animate-slide-up featured" style="background:#1E1E1E; padding:30px; border-radius:15px; box-shadow: 0 15px 40px rgba(183, 71, 42, 0.3); border: 2px solid #FF8A65; border-top: 5px solid #FF8A65; transition: all 0.3s ease; color: #FFF3E0; position: relative; transform: scale(1.05);">
+            <div style="position: absolute; top: 15px; right: -25px; background: linear-gradient(135deg, #B7472A 0%, #8D3A1F 100%); color: white; padding: 5px 35px; font-size: 0.8rem; font-weight: 600; transform: rotate(45deg); border-radius: 3px;">Popular</div>
+            <h3 style="color:#FF8A65; margin-bottom: 15px; font-size: 1.5rem;">Momentum</h3>
+            <p style="margin-bottom: 20px; line-height: 1.6; color: rgba(255, 243, 224, 0.8);">Bespoke agency websites with 3-6 pages, dynamic plugins, and full functionality.</p>
+            <ul style="list-style: none; padding: 0; margin: 0;">
+                <li style="padding: 8px 0; position: relative; padding-left: 25px; color: #FFF3E0;">
+                <span style="position: absolute; left: 0; color: #FF8A65; font-weight: bold;">✓</span>
+                Custom Design & Development
+                </li>
+                <li style="padding: 8px 0; position: relative; padding-left: 25px; color: #FFF3E0;">
+                <span style="position: absolute; left: 0; color: #FF8A65; font-weight: bold;">✓</span>
+                Plugin Integration
+                </li>
+                <li style="padding: 8px 0; position: relative; padding-left: 25px; color: #FFF3E0;">
+                <span style="position: absolute; left: 0; color: #FF8A65; font-weight: bold;">✓</span>
+                Advanced SEO & Analytics
+                </li>
+            </ul>
+            </div>
+
+            <div class="package-card animate-slide-up" style="background:#1E1E1E; padding:30px; border-radius:15px; box-shadow: 0 10px 30px rgba(183, 71, 42, 0.2); border: 2px solid rgba(183, 71, 42, 0.3); border-top: 5px solid #8D3A1F; transition: all 0.3s ease; color: #FFF3E0;">
+            <h3 style="color:#FF8A65; margin-bottom: 15px; font-size: 1.5rem;">Pinnacle</h3>
+            <p style="margin-bottom: 20px; line-height: 1.6; color: rgba(255, 243, 224, 0.8);">High-performance e-commerce solutions with multiple pages, plugins, and personalized functions.</p>
+            <ul style="list-style: none; padding: 0; margin: 0;">
+                <li style="padding: 8px 0; position: relative; padding-left: 25px; color: #FFF3E0;">
+                <span style="position: absolute; left: 0; color: #FF8A65; font-weight: bold;">✓</span>
+                Full E-commerce Setup
+                </li>
+                <li style="padding: 8px 0; position: relative; padding-left: 25px; color: #FFF3E0;">
+                <span style="position: absolute; left: 0; color: #FF8A65; font-weight: bold;">✓</span>
+                Real-time Inventory Management
+                </li>
+                <li style="padding: 8px 0; position: relative; padding-left: 25px; color: #FFF3E0;">
+                <span style="position: absolute; left: 0; color: #FF8A65; font-weight: bold;">✓</span>
+                Custom Plugins & Features
+                </li>
+            </ul>
+            </div>
+        </div>
+
+        <style>
+            .package-card:hover {
+            transform: translateY(-10px) scale(1.02) !important;
+            border-color: #B7472A !important;
+            box-shadow: 0 20px 50px rgba(183, 71, 42, 0.4) !important;
+            }
+            .package-card.featured:hover {
+            transform: translateY(-10px) scale(1.07) !important;
+            }
+        </style>
+        </section>
+
+    <!-- Portfolio Section -->
+    <section id="portfolio" class="section">
+        <h2 class="section-title">Featured Projects</h2>
+        <div class="portfolio-grid">
+            <div class="portfolio-item">
+                <div class="portfolio-image">
+                    <div>E-Commerce Platform</div>
+                </div>
+                <div class="portfolio-content">
+                    <h3>TechFlow Commerce</h3>
+                    <p>A high-performance e-commerce platform handling 10,000+ daily transactions with real-time inventory management and personalized recommendations.</p>
+                    <div class="portfolio-tech">
+                        <span class="tech-tag">React</span>
+                        <span class="tech-tag">Node.js</span>
+                        <span class="tech-tag">MongoDB</span>
+                        <span class="tech-tag">Stripe</span>
+                    </div>
+                </div>
+            </div>
+            <div class="portfolio-item">
+                <div class="portfolio-image">
+                    <div>SaaS Dashboard</div>
+                </div>
+                <div class="portfolio-content">
+                    <h3>DataViz Pro</h3>
+                    <p>Advanced analytics dashboard for enterprise clients featuring real-time data visualization, custom reporting, and team collaboration tools.</p>
+                    <div class="portfolio-tech">
+                        <span class="tech-tag">Vue.js</span>
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">PostgreSQL</span>
+                        <span class="tech-tag">AWS</span>
+                    </div>
+                </div>
+            </div>
+            <div class="portfolio-item">
+                <div class="portfolio-image">
+                    <div>Healthcare App</div>
+                </div>
+                <div class="portfolio-content">
+                    <h3>MedConnect</h3>
+                    <p>HIPAA-compliant telemedicine platform connecting patients with healthcare providers, featuring secure video calls and medical record management.</p>
+                    <div class="portfolio-tech">
+                        <span class="tech-tag">React Native</span>
+                        <span class="tech-tag">Express</span>
+                        <span class="tech-tag">MySQL</span>
+                        <span class="tech-tag">WebRTC</span>
+                    </div>
+                </div>
+            </div>
+            <div class="portfolio-item">
+                <div class="portfolio-image">
+                    <div>Fintech Solution</div>
+                </div>
+                <div class="portfolio-content">
+                    <h3>CryptoTrade Hub</h3>
+                    <p>Cryptocurrency trading platform with advanced charting, portfolio management, and automated trading strategies for institutional investors.</p>
+                    <div class="portfolio-tech">
+                        <span class="tech-tag">Angular</span>
+                        <span class="tech-tag">Java</span>
+                        <span class="tech-tag">Redis</span>
+                        <span class="tech-tag">Kubernetes</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="testimonials" style="padding: 60px 20px; background: #0F0F0F;">
+        <h2 style="text-align:center; margin-bottom:40px; font-weight:bold; font-size:2.5rem; background: linear-gradient(135deg, #B7472A 0%, #8D3A1F 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">What People Are Saying</h2>
+        <div class="testimonial-grid" style="display:grid; grid-template-columns: repeat(auto-fit,minmax(250px,1fr)); gap: 30px; max-width:1200px; margin:0 auto;">
+            <div class="testimonial-card animate-fade-up" style="background:#1E1E1E; padding:25px; border-radius:15px; box-shadow:0 10px 30px rgba(183, 71, 42, 0.2); border: 1px solid rgba(183, 71, 42, 0.2); transition: all 0.3s ease; color: #FFF3E0;">
+            <p style="margin-bottom: 15px; font-style: italic; line-height: 1.6;">"The team delivered beyond expectations. Our website looks stunning and works flawlessly."</p>
+            <strong style="color: #FF8A65;">- Sarah K., Marketing Director</strong>
+            </div>
+            <div class="testimonial-card animate-fade-up" style="background:#1E1E1E; padding:25px; border-radius:15px; box-shadow:0 10px 30px rgba(183, 71, 42, 0.2); border: 1px solid rgba(183, 71, 42, 0.2); transition: all 0.3s ease; color: #FFF3E0;">
+            <p style="margin-bottom: 15px; font-style: italic; line-height: 1.6;">"Fast, efficient, and professional. The e-commerce platform transformed our business."</p>
+            <strong style="color: #FF8A65;">- John M., CEO</strong>
+            </div>
+            <div class="testimonial-card animate-fade-up" style="background:#1E1E1E; padding:25px; border-radius:15px; box-shadow:0 10px 30px rgba(183, 71, 42, 0.2); border: 1px solid rgba(183, 71, 42, 0.2); transition: all 0.3s ease; color: #FFF3E0;">
+            <p style="margin-bottom: 15px; font-style: italic; line-height: 1.6;">"Their expertise in modern web tech and design really shine through every project."</p>
+            <strong style="color: #FF8A65;">- Ananya R., Product Manager</strong>
+            </div>
+        </div>
+
+        <style>
+            .testimonial-card:hover {
+            transform: translateY(-10px) !important;
+            border-color: #B7472A !important;
+            box-shadow: 0 20px 40px rgba(183, 71, 42, 0.3) !important;
+            }
+        </style>
+    </section>
+
+    <!-- Team Section -->
+    <section id="team" class="section">
+        <h2 class="section-title">Meet Our Team</h2>
+        <div class="team-grid">
+            <div class="team-card">
+                <div class="team-avatar">AS</div>
+                <h3>Alex Sterling</h3>
+                <p>Lead Developer & Co-Founder</p>
+                <p>10+ years crafting scalable web solutions. Specialized in React, Node.js, and cloud architecture.</p>
+            </div>
+            <div class="team-card">
+                <div class="team-avatar">MC</div>
+                <h3>Maya Chen</h3>
+                <p>Creative Director</p>
+                <p>Award-winning designer focused on user experience and conversion optimization. Masters in HCI.</p>
+            </div>
+            <div class="team-card">
+                <div class="team-avatar">DR</div>
+                <h3>David Rodriguez</h3>
+                <p>Full-Stack Engineer</p>
+                <p>Performance optimization expert with deep knowledge in modern JavaScript frameworks and databases.</p>
+            </div>
+            <div class="team-card">
+                <div class="team-avatar">SK</div>
+                <h3>Sarah Kim</h3>
+                <p>Project Manager</p>
+                <p>Agile methodology expert ensuring projects deliver on time and exceed client expectations.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section">
+        <h2 class="section-title">Let's Build Something Amazing</h2>
+        <form class="contact-form">
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="project">Project Type</label>
+                <input type="text" id="project" name="project" placeholder="E-commerce, SaaS, Mobile App, etc.">
+            </div>
+            <div class="form-group">
+                <label for="budget">Budget Range</label>
+                <input type="text" id="budget" name="budget" placeholder="$10k - $50k, $50k+, etc.">
+            </div>
+            <div class="form-group">
+                <label for="message">Project Details</label>
+                <textarea id="message" name="message" rows="5" placeholder="Tell us about your vision, goals, and timeline..."></textarea>
+            </div>
+            <button type="submit" class="cta-button">Send Project Brief</button>
+        </form>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2025 Ember Studios. Crafting digital excellence since 2018.</p>
+        <p>San Francisco, CA | hello@emberstudios.dev | (555) 123-4567</p>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate');
+                }
+            });
+        }, observerOptions);
+
+        // Observe all animatable elements
+        document.querySelectorAll('.section-title, .service-card, .portfolio-item, .team-card, .contact-form').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Staggered animation for service cards
+        const serviceCards = document.querySelectorAll('.service-card');
+        serviceCards.forEach((card, index) => {
+            card.style.transitionDelay = `${index * 0.1}s`;
+        });
+
+        // Staggered animation for portfolio items
+        const portfolioItems = document.querySelectorAll('.portfolio-item');
+        portfolioItems.forEach((item, index) => {
+            item.style.transitionDelay = `${index * 0.2}s`;
+        });
+
+        // Staggered animation for team cards
+        const teamCards = document.querySelectorAll('.team-card');
+        teamCards.forEach((card, index) => {
+            card.style.transitionDelay = `${index * 0.15}s`;
+        });
+
+        // Navbar background on scroll
+        window.addEventListener('scroll', () => {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 100) {
+                navbar.style.background = 'rgba(15, 15, 15, 0.98)';
+            } else {
+                navbar.style.background = 'rgba(15, 15, 15, 0.95)';
+            }
+        });
+
+        // Form submission handling
+        document.querySelector('.contact-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const button = this.querySelector('.cta-button');
+            const originalText = button.textContent;
+            
+            button.textContent = 'Sending...';
+            button.style.opacity = '0.7';
+            
+            // Simulate form submission
+            setTimeout(() => {
+                button.textContent = 'Message Sent!';
+                button.style.background = 'linear-gradient(135deg, #4CAF50 0%, #45a049 100%)';
+                
+                setTimeout(() => {
+                    button.textContent = originalText;
+                    button.style.background = 'var(--gradient)';
+                    button.style.opacity = '1';
+                    this.reset();
+                }, 2000);
+            }, 1000);
+        });
+
+        // Parallax effect for hero background
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const hero = document.querySelector('.hero');
+            if (hero && scrolled <= hero.offsetHeight) {
+                hero.style.transform = `translateY(${scrolled * 0.5}px)`;
+            }
+        });
+    </script>
+</body>
+</html>
