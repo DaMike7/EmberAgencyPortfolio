@@ -306,78 +306,53 @@
 
         /* Portfolio Section */
         .portfolio-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
+        display: flex;
+        gap: 1.5rem;
+        overflow-x: auto;
+        scroll-behavior: smooth;
+        padding-bottom: 1rem;
         }
+
 
         .portfolio-item {
-            background: var(--surface);
-            border-radius: 15px;
-            overflow: hidden;
-            transition: all 0.3s ease;
-            opacity: 0;
-            transform: scale(0.9);
-            position: relative;
+        min-width: 400px;
+        max-width: 380px;
+        flex: 0 0 auto;
+        background: var(--surface);
+        border-radius: 15px;
+        overflow: hidden;
+        transition: all 0.3s ease;
         }
 
-        .portfolio-item.animate {
-            opacity: 1;
-            transform: scale(1);
-        }
 
         .portfolio-item:hover {
-            transform: scale(1.05);
-            box-shadow: 0 20px 40px rgba(183, 71, 42, 0.3);
+        transform: scale(1.05);
+        box-shadow: 0 20px 40px rgba(183, 71, 42, 0.3);
         }
+
 
         .portfolio-image {
-            width: 100%;
-            height: 250px;
-            background: linear-gradient(45deg, var(--primary), var(--secondary));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 1.2rem;
-            position: relative;
-            overflow: hidden;
+        width: 100%;
+        height: 160px;
+        object-fit: cover;
         }
 
-        .portfolio-image::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><rect width="200" height="200" fill="%23B7472A"/><rect x="50" y="50" width="100" height="100" fill="%23FFF3E0" opacity="0.1"/><circle cx="100" cy="100" r="30" fill="%23FF8A65" opacity="0.3"/></svg>');
-            opacity: 0.3;
-        }
 
         .portfolio-content {
-            padding: 1.5rem;
+        padding: 1rem;
         }
+
 
         .portfolio-content h3 {
-            color: var(--accent);
-            margin-bottom: 0.5rem;
+        color: var(--accent);
+        margin-bottom: 0.5rem;
+        font-size: 1.1rem;
         }
 
-        .portfolio-tech {
-            display: flex;
-            gap: 0.5rem;
-            margin-top: 1rem;
-            flex-wrap: wrap;
-        }
 
-        .tech-tag {
-            background: rgba(183, 71, 42, 0.2);
-            color: var(--accent);
-            padding: 0.3rem 0.8rem;
-            border-radius: 20px;
-            font-size: 0.8rem;
+        .portfolio-content p {
+        font-size: 0.9rem;
+        line-height: 1.4;
         }
 
         /* Team Section */
@@ -653,70 +628,55 @@
 
     <!-- Portfolio Section -->
     <section id="portfolio" class="section">
-        <h2 class="section-title">Featured Projects</h2>
-        <div class="portfolio-grid">
-            <div class="portfolio-item">
-                <div class="portfolio-image">
-                    <div>E-Commerce Platform</div>
-                </div>
-                <div class="portfolio-content">
-                    <h3>TechFlow Commerce</h3>
-                    <p>A high-performance e-commerce platform handling 10,000+ daily transactions with real-time inventory management and personalized recommendations.</p>
-                    <div class="portfolio-tech">
-                        <span class="tech-tag">React</span>
-                        <span class="tech-tag">Node.js</span>
-                        <span class="tech-tag">MongoDB</span>
-                        <span class="tech-tag">Stripe</span>
-                    </div>
-                </div>
-            </div>
-            <div class="portfolio-item">
-                <div class="portfolio-image">
-                    <div>SaaS Dashboard</div>
-                </div>
-                <div class="portfolio-content">
-                    <h3>DataViz Pro</h3>
-                    <p>Advanced analytics dashboard for enterprise clients featuring real-time data visualization, custom reporting, and team collaboration tools.</p>
-                    <div class="portfolio-tech">
-                        <span class="tech-tag">Vue.js</span>
-                        <span class="tech-tag">Python</span>
-                        <span class="tech-tag">PostgreSQL</span>
-                        <span class="tech-tag">AWS</span>
-                    </div>
-                </div>
-            </div>
-            <div class="portfolio-item">
-                <div class="portfolio-image">
-                    <div>Healthcare App</div>
-                </div>
-                <div class="portfolio-content">
-                    <h3>MedConnect</h3>
-                    <p>HIPAA-compliant telemedicine platform connecting patients with healthcare providers, featuring secure video calls and medical record management.</p>
-                    <div class="portfolio-tech">
-                        <span class="tech-tag">React Native</span>
-                        <span class="tech-tag">Express</span>
-                        <span class="tech-tag">MySQL</span>
-                        <span class="tech-tag">WebRTC</span>
-                    </div>
-                </div>
-            </div>
-            <div class="portfolio-item">
-                <div class="portfolio-image">
-                    <div>Fintech Solution</div>
-                </div>
-                <div class="portfolio-content">
-                    <h3>CryptoTrade Hub</h3>
-                    <p>Cryptocurrency trading platform with advanced charting, portfolio management, and automated trading strategies for institutional investors.</p>
-                    <div class="portfolio-tech">
-                        <span class="tech-tag">Angular</span>
-                        <span class="tech-tag">Java</span>
-                        <span class="tech-tag">Redis</span>
-                        <span class="tech-tag">Kubernetes</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+<h2 class="section-title">Featured Projects</h2>
+<div class="portfolio-grid" id="portfolioGrid">
+<div class="portfolio-item">
+<img src="https://source.unsplash.com/400x300/?ecommerce,website" alt="E-Commerce" class="portfolio-image">
+<div class="portfolio-content">
+<h3>TechFlow Commerce</h3>
+<p>A high-performance e-commerce platform handling 10,000+ daily transactions.</p>
+</div>
+</div>
+<div class="portfolio-item">
+<img src="https://source.unsplash.com/400x300/?dashboard,analytics" alt="SaaS Dashboard" class="portfolio-image">
+<div class="portfolio-content">
+<h3>DataViz Pro</h3>
+<p>Advanced analytics dashboard for enterprise clients.</p>
+</div>
+</div>
+<div class="portfolio-item">
+<img src="https://source.unsplash.com/400x300/?dashboard,analytics" alt="SaaS Dashboard" class="portfolio-image">
+<div class="portfolio-content">
+<h3>DataViz Pro</h3>
+<p>Advanced analytics dashboard for enterprise clients.</p>
+</div>
+</div>
+<div class="portfolio-item">
+<img src="https://cdn.dribbble.com/userupload/18395413/file/original-9f80307f2a627fc2be001edd82438f60.png?format=webp&resize=400x300&vertical=center" alt="SaaS Dashboard" class="portfolio-image">
+<div class="portfolio-content">
+<h3>DataViz Pro</h3>
+<p>Advanced analytics dashboard for enterprise clients.</p>
+</div>
+</div>
+<div class="portfolio-item">
+<img src="https://cdn.dribbble.com/userupload/18395413/file/original-9f80307f2a627fc2be001edd82438f60.png?format=webp&resize=400x300&vertical=center" alt="Healthcare App" class="portfolio-image">
+<div class="portfolio-content">
+<h3>MedConnect</h3>
+<p>HIPAA-compliant telemedicine platform with secure video calls.</p>
+</div>
+</div>
+<div class="portfolio-item">
+<img src="https://cdn.dribbble.com/userupload/18395413/file/original-9f80307f2a627fc2be001edd82438f60.png?format=webp&resize=400x300&vertical=center" alt="Fintech Solution" class="portfolio-image">
+<div class="portfolio-content">
+<h3>CryptoTrade Hub</h3>
+<p>Cryptocurrency trading platform with advanced charting and automation.</p>
+</div>
+</div>
+</div>
+</section>
+
+
+
 
     <section id="testimonials" style="padding: 60px 20px; background: #0F0F0F;">
         <h2 style="text-align:center; margin-bottom:40px; font-weight:bold; font-size:2.5rem; background: linear-gradient(135deg, #B7472A 0%, #8D3A1F 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">What People Are Saying</h2>
@@ -766,12 +726,6 @@
                 <p>Full-Stack Engineer</p>
                 <p>Performance optimization expert with deep knowledge in modern JavaScript frameworks and databases.</p>
             </div>
-            <div class="team-card">
-                <div class="team-avatar">SK</div>
-                <h3>Sarah Kim</h3>
-                <p>Project Manager</p>
-                <p>Agile methodology expert ensuring projects deliver on time and exceed client expectations.</p>
-            </div>
         </div>
     </section>
 
@@ -780,7 +734,7 @@
         <h2 class="section-title">Let's Build Something Amazing</h2>
         <form class="contact-form">
             <div class="form-group">
-                <label for="name">Name</label>
+                <label for="name">Business Or Organisation Name</label>
                 <input type="text" id="name" name="name" required>
             </div>
             <div class="form-group">
