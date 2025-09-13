@@ -486,6 +486,51 @@
                 transform: translateX(-50%) translateY(-5px);
             }
         }
+
+        /* ===== Modal Styles ===== */
+        .modal {
+        display: none;
+        position: fixed;
+        z-index: 2000;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(15, 15, 15, 0.85);
+        backdrop-filter: blur(6px);
+        }
+
+        .modal-content {
+        background: var(--surface);
+        color: var(--text);
+        margin: 5% auto;
+        padding: 2rem;
+        border-radius: 15px;
+        max-width: 650px;
+        text-align: left;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+        transition: 0.1s;
+        }
+
+        /* Long detail text */
+        .detail-text {
+        margin-top: 1.2rem;
+        font-size: 0.95rem;
+        line-height: 1.6;
+        opacity: 0.9;
+        }
+
+        /* Close button */
+        .close-btn {
+        float: right;
+        font-size: 1.5rem;
+        cursor: pointer;
+        color: var(--accent);
+        }
+        .close-btn:hover {
+        color: var(--primary);
+    }
+
     </style>
 </head>
 <body>
@@ -850,6 +895,20 @@
         <p>San Francisco, CA | hello@emberstudios.dev | (555) 123-4567</p>
     </footer>
 
+
+    <!-- Service Popup Modal -->
+    <div id="serviceModal" class="modal">
+    <div class="modal-content service-card">
+        <span class="close-btn">&times;</span>
+        <div class="service-icon" id="modalIcon"></div>
+        <h3 id="modalTitle"></h3>
+        <p id="modalDescription"></p>
+        <p id="modalDetail" class="detail-text"></p>
+    </div>
+    </div>
+    <!-- Service Popup Modal -->
+
+
     <script>
         // Smooth scrolling for navigation links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -943,6 +1002,36 @@
                 hero.style.transform = `translateY(${scrolled * 0.5}px)`;
             }
         });
+
+        // ===== Modal Logic =====
+        const modal = document.getElementById("serviceModal");
+        const modalTitle = document.getElementById("modalTitle");
+        const modalDescription = document.getElementById("modalDescription");
+        const modalDetail = document.getElementById("modalDetail");
+        const modalIcon = document.getElementById("modalIcon");
+        const closeBtn = document.querySelector(".close-btn");
+
+        // Open modal with card content
+        document.querySelectorAll(".service-card").forEach(card => {
+        card.addEventListener("click", () => {
+            const icon = card.querySelector(".service-icon").innerHTML;
+            const title = card.querySelector("h3").innerText;
+            const description = card.querySelector("p").innerText;
+            const detail = card.getAttribute("data-detail");
+
+            modalIcon.innerHTML = icon;
+            modalTitle.innerText = title;
+            modalDescription.innerText = description;
+            modalDetail.innerText = detail;
+
+            modal.style.display = "block";
+        });
+        });
+
+        // Close modal
+        closeBtn.onclick = () => { modal.style.display = "none"; }
+        window.onclick = (e) => { if (e.target === modal) modal.style.display = "none"; }
+
     </script>
 </body>
 </html>
