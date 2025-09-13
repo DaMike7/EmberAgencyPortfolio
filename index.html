@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link  sizes="192x192"rel="icon" type="png/svg+xml" href="./src/logo.png" />
-    <title>Ember Studios |Web Development, AI Automation Agency</title>
+    <title>Ember Studios | Web Development, AI Automation Agency</title>
     <style>
         * {
             margin: 0;
@@ -869,7 +869,7 @@
     <!-- Contact Section -->
     <section id="contact" class="section">
         <h2 class="section-title">Let's Build Something Amazing</h2>
-        <form class="contact-form">
+        <form id="contactForm" class="contact-form">
             <div class="form-group">
                 <label for="name">Business Or Organisation Name</label>
                 <input type="text" id="name" name="name" required>
@@ -896,8 +896,8 @@
 
     <!-- Footer -->
     <footer class="footer">
-        <p>&copy; 2025 Ember Studios. Crafting digital excellence since 2018.</p>
-        <p>San Francisco, CA | hello@emberstudios.dev | (555) 123-4567</p>
+        <p>&copy; 2025 Ember Studios. Crafting digital excellence since 2023.</p>
+        <p>San Francisco, CA | emberdesigns.hr@tuta.io | (555) 123-4567</p>
     </footer>
 
 
@@ -1008,44 +1008,63 @@
             }
         });
 
-// ===== Modal Logic =====
-const modal = document.getElementById("serviceModal");
-const modalTitle = document.getElementById("modalTitle");
-const modalDescription = document.getElementById("modalDescription");
-const modalDetail = document.getElementById("modalDetail");
-const modalIcon = document.getElementById("modalIcon");
-const closeBtn = document.querySelector(".close-btn");
+        // ===== Modal Logic =====
+        const modal = document.getElementById("serviceModal");
+        const modalTitle = document.getElementById("modalTitle");
+        const modalDescription = document.getElementById("modalDescription");
+        const modalDetail = document.getElementById("modalDetail");
+        const modalIcon = document.getElementById("modalIcon");
+        const closeBtn = document.querySelector(".close-btn");
 
-// Open modal with card content (exclude modal's own card)
-document.querySelectorAll(".service-card").forEach(card => {
-  if (!card.closest("#serviceModal")) { // ignore modal's card
-    card.addEventListener("click", () => {
-      const icon = card.querySelector(".service-icon").innerHTML;
-      const title = card.querySelector("h3").innerText;
-      const description = card.querySelector("p").innerText;
-      const detail = card.getAttribute("data-detail") || "";
+        // Open modal with card content (exclude modal's own card)
+        document.querySelectorAll(".service-card").forEach(card => {
+        if (!card.closest("#serviceModal")) {
+            card.addEventListener("click", () => {
+            const icon = card.querySelector(".service-icon").innerHTML;
+            const title = card.querySelector("h3").innerText;
+            const description = card.querySelector("p").innerText;
+            const detail = card.getAttribute("data-detail") || "";
 
-      modalIcon.innerHTML = icon;
-      modalTitle.innerText = title;
-      modalDescription.innerText = description;
-      modalDetail.innerText = detail;
+            modalIcon.innerHTML = icon;
+            modalTitle.innerText = title;
+            modalDescription.innerText = description;
+            modalDetail.innerText = detail;
 
-      modal.style.display = "block";
+            modal.style.display = "block";
+            });
+        }
+        });
+
+        // Close modal
+        closeBtn.addEventListener("click", (e) => {
+        e.stopPropagation(); // prevent bubbling
+        modal.style.display = "none";
+        });
+
+        window.addEventListener("click", (e) => {
+        if (e.target === modal) modal.style.display = "none";
+        });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+    <script>
+    (function() {
+        emailjs.init("GJOXB2tufSQYevoxn");
+    })();
+    </script>
+    <script>
+    document.getElementById("contactForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    emailjs.sendForm("service_715pqr9", "template_l1vb87x", this)
+        .then(() => {
+        alert("✅ Project brief sent successfully!");
+        this.reset();
+        })
+        .catch((err) => {
+        console.error("EmailJS error:", err);
+        alert("❌ Failed to send project brief. Please try again.");
+        });
     });
-  }
-});
-
-// Close modal
-closeBtn.addEventListener("click", (e) => {
-  e.stopPropagation(); // prevent bubbling
-  modal.style.display = "none";
-});
-
-window.addEventListener("click", (e) => {
-  if (e.target === modal) modal.style.display = "none";
-});
-
-
     </script>
 </body>
 </html>
