@@ -522,14 +522,19 @@
 
         /* Close button */
         .close-btn {
-        float: right;
-        font-size: 1.5rem;
-        cursor: pointer;
+        position: absolute;
+        right: 18px;
+        top: 14px;
+        background: transparent;
+        border: none;
         color: var(--accent);
+        font-size: 1.6rem;
+        line-height: 1;
+        cursor: pointer;
+        z-index: 3;
+        padding: 6px;
         }
-        .close-btn:hover {
-        color: var(--primary);
-    }
+        .close-btn:hover { color: var(--primary); }
 
     </style>
 </head>
@@ -1003,34 +1008,43 @@
             }
         });
 
-        // ===== Modal Logic =====
-        const modal = document.getElementById("serviceModal");
-        const modalTitle = document.getElementById("modalTitle");
-        const modalDescription = document.getElementById("modalDescription");
-        const modalDetail = document.getElementById("modalDetail");
-        const modalIcon = document.getElementById("modalIcon");
-        const closeBtn = document.querySelector(".close-btn");
+// ===== Modal Logic =====
+const modal = document.getElementById("serviceModal");
+const modalTitle = document.getElementById("modalTitle");
+const modalDescription = document.getElementById("modalDescription");
+const modalDetail = document.getElementById("modalDetail");
+const modalIcon = document.getElementById("modalIcon");
+const closeBtn = document.querySelector(".close-btn");
 
-        // Open modal with card content
-        document.querySelectorAll(".service-card").forEach(card => {
-        card.addEventListener("click", () => {
-            const icon = card.querySelector(".service-icon").innerHTML;
-            const title = card.querySelector("h3").innerText;
-            const description = card.querySelector("p").innerText;
-            const detail = card.getAttribute("data-detail");
+// Open modal with card content (exclude modal's own card)
+document.querySelectorAll(".service-card").forEach(card => {
+  if (!card.closest("#serviceModal")) { // ignore modal's card
+    card.addEventListener("click", () => {
+      const icon = card.querySelector(".service-icon").innerHTML;
+      const title = card.querySelector("h3").innerText;
+      const description = card.querySelector("p").innerText;
+      const detail = card.getAttribute("data-detail") || "";
 
-            modalIcon.innerHTML = icon;
-            modalTitle.innerText = title;
-            modalDescription.innerText = description;
-            modalDetail.innerText = detail;
+      modalIcon.innerHTML = icon;
+      modalTitle.innerText = title;
+      modalDescription.innerText = description;
+      modalDetail.innerText = detail;
 
-            modal.style.display = "block";
-        });
-        });
+      modal.style.display = "block";
+    });
+  }
+});
 
-        // Close modal
-        closeBtn.onclick = () => { modal.style.display = "none"; }
-        window.onclick = (e) => { if (e.target === modal) modal.style.display = "none"; }
+// Close modal
+closeBtn.addEventListener("click", (e) => {
+  e.stopPropagation(); // prevent bubbling
+  modal.style.display = "none";
+});
+
+window.addEventListener("click", (e) => {
+  if (e.target === modal) modal.style.display = "none";
+});
+
 
     </script>
 </body>
