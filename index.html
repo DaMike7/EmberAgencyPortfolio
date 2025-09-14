@@ -466,11 +466,20 @@
             }
         }
 
-        /* Scroll animations */
-        .scroll-indicator {
+        /* Scroll animations Hero */
+        .scroll-indicator-hero {
             position: absolute;
             bottom: 2rem;
             left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
+        }
+
+        /* Scroll animations Expertise */
+        .scroll-indicator {
+            position: absolute;
+            bottom: 0.5rem;
+            left: 80%;
             transform: translateX(-50%);
             animation: bounce 2s infinite;
         }
@@ -562,8 +571,8 @@
             <p>We engineer cutting-edge websites and intelligent automation systems that elevate brands, streamline workflows, and unlock growth at scale.</p>
             <a href="#contact" class="cta-button">Launch Your Next Advantage</a>
         </div>
-        <div class="scroll-indicator">
-            <div style="color: var(--accent); font-size: 1.5rem;">↓</div>
+        <div class="scroll-indicator-hero">
+            <div style="color: var(--accent); font-size: 2rem;font-weight: bold;">↓</div>
         </div>
     </section>
 
@@ -578,6 +587,9 @@
                 <div style="position: absolute; top: 15px; right: -25px; background: linear-gradient(135deg, #B7472A 0%, #8D3A1F 100%); color: white; padding: 5px 35px; font-size: 0.8rem; font-weight: 600; transform: rotate(45deg); border-radius: 3px;">Popular</div>
                 <h3>Private AI Automation System</h3>
                 <p>AI-driven systems that work as private, secure copilots for your business. Using N8N,LLaMA 3 780B models hosted privately, we build tailored GPTs trained on your company’s data wrapped in a friendly, intuitive interface</p>
+                <div class="scroll-indicator">
+                    <div style="color: var(--accent); font-size: 1.5rem;font-weight: bold;">↓</div>
+                </div>
             </div>
             <div class="service-card">
                 <div class="service-icon">
@@ -585,6 +597,9 @@
                 </div>
                 <h3>Web Development</h3>
                 <p>Custom websites and web applications built with modern technologies like React, Node.js, and cloud infrastructure for maximum performance and scalability.</p>
+                <div class="scroll-indicator">
+                    <div style="color: var(--accent); font-size: 1.5rem;font-weight: bold;">↓</div>
+                </div>
             </div>
             <div class="service-card">
                 <div class="service-icon">
@@ -592,6 +607,9 @@
                 </div>
                 <h3>Mobile-First Design</h3>
                 <p>Responsive, mobile-optimized experiences that work flawlessly across all devices, ensuring your audience can engage with your brand anywhere.</p>
+                <div class="scroll-indicator">
+                    <div style="color: var(--accent); font-size: 1.5rem;font-weight: bold;">↓</div>
+                </div>
             </div>
             <div class="service-card">
                 <div class="service-icon">
@@ -599,6 +617,9 @@
                 </div>
                 <h3>Performance Optimization</h3>
                 <p>Lightning-fast loading times and smooth interactions through advanced optimization techniques, improving user experience and search rankings.</p>
+                <div class="scroll-indicator">
+                    <div style="color: var(--accent); font-size: 1.5rem;font-weight: bold;">↓</div>
+                </div>
             </div>
             <div class="service-card">
                 <div class="service-icon">
@@ -606,6 +627,9 @@
                 </div>
                 <h3>Security & Maintenance</h3>
                 <p>Robust security implementations and ongoing maintenance to keep your digital assets protected and performing at their best.</p>
+                <div class="scroll-indicator">
+                    <div style="color: var(--accent); font-size: 1.5rem;font-weight: bold;">↓</div>
+                </div>
             </div>
             <div class="service-card">
                 <div class="service-icon">
@@ -613,6 +637,9 @@
                 </div>
                 <h3>Analytics & Insights</h3>
                 <p>Comprehensive tracking and analytics setup to measure performance, understand user behavior, and drive data-informed decisions.</p>
+                <div class="scroll-indicator">
+                    <div style="color: var(--accent); font-size: 1.5rem;font-weight: bold;">↓</div>
+                </div>
             </div>
             <div class="service-card">
                 <div class="service-icon">
@@ -620,6 +647,9 @@
                 </div>
                 <h3>UI/UX Design</h3>
                 <p>Intuitive, conversion-focused designs that combine aesthetic appeal with user psychology to create engaging digital experiences.</p>
+                <div class="scroll-indicator">
+                    <div style="color: var(--accent); font-size: 1.5rem;font-weight: bold;">↓</div>
+                </div>
             </div>
         </div>
     </section>
@@ -897,7 +927,7 @@
     <!-- Footer -->
     <footer class="footer">
         <p>&copy; 2025 Ember Studios. Crafting digital excellence since 2023.</p>
-        <p>San Francisco, CA | emberdesigns.hr@tuta.io | (555) 123-4567</p>
+        <p>San Francisco, CA | emberdesigns.hr@proton.me</p>
     </footer>
 
 
