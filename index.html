@@ -6,6 +6,7 @@
     <link  sizes="192x192"rel="icon" type="png/svg+xml" href="./src/logo.png" />
     <title>Ember Studios | Web Development, AI Automation Agency</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Space+Mono:wght@400;500;600&display=swap');
         * {
             margin: 0;
             padding: 0;
@@ -27,7 +28,7 @@
         }
 
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-family: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
             background-color: var(--background);
             color: var(--text);
             line-height: 1.6;
@@ -143,14 +144,14 @@
         }
 
         .hero h1 {
-            font-size: 3.5rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-            background: var(--gradient);
+            font-size: clamp(2rem, 4vw, 4rem);
+            font-weight: 800;
+            margin-bottom: 2rem;
+            letter-spacing: -0.02em;
+            background: linear-gradient(135deg, #ffffff, #cccccc);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            animation: slideInLeft 1s ease-out 0.3s both;
         }
 
         @keyframes slideInLeft {
