@@ -306,9 +306,6 @@
             color: var(--accent);
         }
 
-        /* Portfolio Section */
-
-
         /* Team Section */
         .team-grid {
             display: grid;
@@ -633,6 +630,282 @@
         }
         /* Floating geometric shapes */
     </style>
+
+    <!--PORTFOLIO STYLE-->
+    <style>    
+/* Portfolio Section - Fixed */
+#portfolio {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 6rem 2rem;
+}
+
+.portfolio-container {
+    position: relative;
+    width: 400px;
+    height: 550px;
+    perspective: 1500px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.card-stack {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.portfolio-card {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+}
+
+/* Only top card visible - hide others */
+.portfolio-card:nth-child(1) {
+    z-index: 5;
+    transform: translateZ(0px) rotateY(0deg);
+    opacity: 1;
+}
+
+.portfolio-card:nth-child(2) {
+    z-index: 4;
+    transform: translateZ(-20px) rotateY(0deg) scale(0.95);
+    opacity: 0; /* Hidden */
+    pointer-events: none;
+}
+
+.portfolio-card:nth-child(3) {
+    z-index: 3;
+    transform: translateZ(-40px) rotateY(0deg) scale(0.9);
+    opacity: 0; /* Hidden */
+    pointer-events: none;
+}
+
+.portfolio-card:nth-child(4) {
+    z-index: 2;
+    transform: translateZ(-60px) rotateY(0deg) scale(0.85);
+    opacity: 0; /* Hidden */
+    pointer-events: none;
+}
+
+.portfolio-card:nth-child(5) {
+    z-index: 1;
+    transform: translateZ(-80px) rotateY(0deg) scale(0.8);
+    opacity: 0; /* Hidden */
+    pointer-events: none;
+}
+
+/* Card faces - Less transparent, more solid */
+.card-front, .card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border-radius: 20px;
+    /* More solid background */
+    background: linear-gradient(135deg, 
+        rgba(30, 30, 30, 0.95), 
+        rgba(15, 15, 15, 0.95)
+    );
+    border: 1px solid rgba(183, 71, 42, 0.5);
+    backdrop-filter: blur(10px);
+    padding: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+}
+
+.card-back {
+    transform: rotateY(180deg);
+    background: linear-gradient(135deg, 
+        rgba(183, 71, 42, 0.2), 
+        rgba(30, 30, 30, 0.95)
+    );
+    border-color: rgba(183, 71, 42, 0.7);
+}
+
+/* Flipped state */
+.portfolio-card.flipped {
+    transform: rotateY(180deg);
+}
+
+/* Moving to back animation - optimized */
+.portfolio-card.moving-back {
+    transform: translateX(-120%) rotateY(0deg) scale(0.7);
+    opacity: 0;
+    z-index: 0;
+}
+
+/* Smooth restacking */
+.portfolio-card.restacking {
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.category {
+    font-size: 0.9rem;
+    color: #FF8A65;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 1rem;
+}
+
+.card-title {
+    font-size: 2rem;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 1.5rem;
+    background: linear-gradient(135deg, #ffffff, #cccccc);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.card-description {
+    font-size: 1.1rem;
+    color: #cccccc;
+    line-height: 1.6;
+    flex-grow: 1;
+}
+
+.portfolio-card .cta-button {
+    display: inline-block;
+    padding: 1rem 2rem;
+    background: linear-gradient(135deg, #B7472A, #8D3A1F);
+    color: white;
+    text-decoration: none;
+    border-radius: 12px;
+    font-weight: 600;
+    text-align: center;
+    transition: all 0.3s ease;
+    box-shadow: 0 10px 30px rgba(183, 71, 42, 0.3);
+    margin-top: 2rem;
+}
+
+.portfolio-card .cta-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 15px 40px rgba(183, 71, 42, 0.4);
+}
+
+/* Navigation */
+.nav-controls {
+    position: absolute;
+    bottom: -80px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 2rem;
+    z-index: 10;
+}
+
+.nav-button {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, #B7472A, #8D3A1F);
+    border: none;
+    border-radius: 50%;
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 10px 30px rgba(183, 71, 42, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.nav-button:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 15px 40px rgba(183, 71, 42, 0.4);
+}
+
+.nav-button:active {
+    transform: translateY(-1px) scale(0.98);
+}
+
+/* Progress indicator */
+.progress-indicator {
+    position: absolute;
+    bottom: -120px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 8px;
+}
+
+.progress-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    transition: all 0.3s ease;
+}
+
+.progress-dot.active {
+    background: #B7472A;
+    box-shadow: 0 0 15px rgba(183, 71, 42, 0.5);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .portfolio-container {
+        width: 350px;
+        height: 500px;
+    }
+    
+    .card-front, .card-back {
+        padding: 2rem;
+    }
+    
+    .card-title {
+        font-size: 1.7rem;
+    }
+    
+    .card-description {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .portfolio-container {
+        width: 320px;
+        height: 480px;
+    }
+    
+    .card-front, .card-back {
+        padding: 1.5rem;
+    }
+    
+    .card-title {
+        font-size: 1.5rem;
+    }
+    
+    .nav-controls {
+        bottom: -60px;
+        gap: 1.5rem;
+    }
+    
+    .nav-button {
+        width: 50px;
+        height: 50px;
+        font-size: 1.2rem;
+    }
+    
+    .progress-indicator {
+        bottom: -100px;
+    }
+}
+    </style>
 </head>
 <body>
     <!-- Premium Background Animation -->
@@ -877,9 +1150,308 @@
         <!-- Portfolio Section -->
         <section id="portfolio" class="section">
             <h2 class="section-title">Featured Projects</h2>
+                <div class="portfolio-container">
+        <div class="card-stack" id="cardStack">
+            <!-- Card 1: Legal AI Research Assistant -->
+            <div class="portfolio-card" data-index="0">
+                <div class="card-front">
+                    <div>
+                        <div class="category">Private AI System (Law Firm)</div>
+                        <h2 class="card-title">Legal AI Research Assistant</h2>
+                        <p class="card-description">AI system for law firms to query and summarize 15,000+ documents.</p>
+                    </div>
+                </div>
+                <div class="card-back">
+                    <div>
+                        <div class="category">Private AI System (Law Firm)</div>
+                        <h2 class="card-title">Legal AI Research Assistant</h2>
+                        <p class="card-description">Enabled lawyers to instantly search and summarize case documents with context-aware AI, reducing research time by 70%.</p>
+                    </div>
+                    <a href="#" class="cta-button">Launch My AI Assistant</a>
+                </div>
+            </div>
 
+            <!-- Card 2: AI-Powered Patient Knowledge Hub -->
+            <div class="portfolio-card" data-index="1">
+                <div class="card-front">
+                    <div>
+                        <div class="category">Private AI System (Healthcare Clinic)</div>
+                        <h2 class="card-title">AI-Powered Patient Knowledge Hub</h2>
+                        <p class="card-description">HIPAA-compliant AI for clinics to answer patient queries and assist doctors.</p>
+                    </div>
+                </div>
+                <div class="card-back">
+                    <div>
+                        <div class="category">Private AI System (Healthcare Clinic)</div>
+                        <h2 class="card-title">AI-Powered Patient Knowledge Hub</h2>
+                        <p class="card-description">Delivered a secure AI knowledge hub that improved consultation efficiency by 40% and reduced admin burden.</p>
+                    </div>
+                    <a href="#" class="cta-button">Deploy My Healthcare AI</a>
+                </div>
+            </div>
+
+            <!-- Card 3: AI Compliance & Risk Advisor -->
+            <div class="portfolio-card" data-index="2">
+                <div class="card-front">
+                    <div>
+                        <div class="category">Private AI System (Finance)</div>
+                        <h2 class="card-title">AI Compliance & Risk Advisor</h2>
+                        <p class="card-description">AI system for compliance checks and risk analysis in financial services.</p>
+                    </div>
+                </div>
+                <div class="card-back">
+                    <div>
+                        <div class="category">Private AI System (Finance)</div>
+                        <h2 class="card-title">AI Compliance & Risk Advisor</h2>
+                        <p class="card-description">Automated compliance reviews, cutting manual effort by 60% and reducing human error.</p>
+                    </div>
+                    <a href="#" class="cta-button">Secure My Compliance AI</a>
+                </div>
+            </div>
+
+            <!-- Card 4: Real Estate Listings & CRM Platform -->
+            <div class="portfolio-card" data-index="3">
+                <div class="card-front">
+                    <div>
+                        <div class="category">Web Development (Realtor Agency)</div>
+                        <h2 class="card-title">Real Estate Listings & CRM Platform</h2>
+                        <p class="card-description">Modern property showcase site with CRM and real-time listings.</p>
+                    </div>
+                </div>
+                <div class="card-back">
+                    <div>
+                        <div class="category">Web Development (Realtor Agency)</div>
+                        <h2 class="card-title">Real Estate Listings & CRM Platform</h2>
+                        <p class="card-description">Built a scalable realtor site that increased qualified leads by 40% and streamlined agent workflows.</p>
+                    </div>
+                    <a href="#" class="cta-button">Build My Real Estate Platform</a>
+                </div>
+            </div>
+
+            <!-- Card 5: Custom Fashion E-Commerce Storefront -->
+            <div class="portfolio-card" data-index="4">
+                <div class="card-front">
+                    <div>
+                        <div class="category">E-Commerce Development</div>
+                        <h2 class="card-title">Custom Fashion E-Commerce Storefront</h2>
+                        <p class="card-description">Mobile-first fashion e-commerce storefront with optimized checkout.</p>
+                    </div>
+                </div>
+                <div class="card-back">
+                    <div>
+                        <div class="category">E-Commerce Development</div>
+                        <h2 class="card-title">Custom Fashion E-Commerce Storefront</h2>
+                        <p class="card-description">Boosted conversion rates by 32% with AI-powered recommendations and a streamlined shopping experience.</p>
+                    </div>
+                    <a href="#" class="cta-button">Design My Online Store</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation Controls -->
+        <div class="nav-controls">
+            <button class="nav-button" id="prevButton">◀</button>
+            <button class="nav-button" id="nextButton">▶</button>
+        </div>
+
+        <!-- Progress Indicator -->
+        <div class="progress-indicator" id="progressIndicator">
+            <div class="progress-dot active"></div>
+            <div class="progress-dot"></div>
+            <div class="progress-dot"></div>
+            <div class="progress-dot"></div>
+            <div class="progress-dot"></div>
+        </div>
+    </div>
         </section>
         <!-- Portfolio Section -->
+    <script>
+        class PortfolioStack {
+            constructor() {
+                this.currentIndex = 0;
+                this.totalCards = 5;
+                this.cards = document.querySelectorAll('.portfolio-card');
+                this.nextButton = document.getElementById('nextButton');
+                this.prevButton = document.getElementById('prevButton');
+                this.progressDots = document.querySelectorAll('.progress-dot');
+                this.isAnimating = false;
+                
+                this.init();
+            }
+            
+            init() {
+                // Add click listeners to cards
+                this.cards.forEach((card, index) => {
+                    card.addEventListener('click', (e) => {
+                        if (index === this.currentIndex && !this.isAnimating) {
+                            this.flipCard(card);
+                        }
+                    });
+                });
+                
+                // Add next button listener
+                this.nextButton.addEventListener('click', () => {
+                    if (!this.isAnimating) {
+                        this.nextCard();
+                    }
+                });
+                
+                // Add prev button listener
+                this.prevButton.addEventListener('click', () => {
+                    if (!this.isAnimating) {
+                        this.prevCard();
+                    }
+                });
+                
+                // Prevent CTA clicks from flipping card
+                document.querySelectorAll('.cta-button').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                    });
+                });
+            }
+            
+            flipCard(card) {
+                if (this.isAnimating) return;
+                
+                this.isAnimating = true;
+                card.classList.toggle('flipped');
+                
+                setTimeout(() => {
+                    this.isAnimating = false;
+                }, 800);
+            }
+            
+            nextCard() {
+                if (this.isAnimating) return;
+                
+                this.isAnimating = true;
+                const currentCard = this.cards[this.currentIndex];
+                
+                // Step 1: Flip back if needed (faster)
+                if (currentCard.classList.contains('flipped')) {
+                    currentCard.classList.remove('flipped');
+                    setTimeout(() => this.slideCardAway(currentCard), 200);
+                } else {
+                    this.slideCardAway(currentCard);
+                }
+            }
+            
+            prevCard() {
+                if (this.isAnimating) return;
+                
+                this.isAnimating = true;
+                const currentCard = this.cards[this.currentIndex];
+                
+                // Step 1: Flip back if needed
+                if (currentCard.classList.contains('flipped')) {
+                    currentCard.classList.remove('flipped');
+                    setTimeout(() => this.slideCardAwayReverse(currentCard), 200);
+                } else {
+                    this.slideCardAwayReverse(currentCard);
+                }
+            }
+            
+            slideCardAwayReverse(card) {
+                // Slide to the right instead of left
+                card.style.transform = 'translateX(120%) rotateY(0deg) scale(0.7)';
+                card.style.opacity = '0';
+                card.style.zIndex = '0';
+                
+                setTimeout(() => {
+                    this.updateStackReverse();
+                }, 400);
+            }
+            
+            slideCardAway(card) {
+                // Step 2: Slide away smoothly
+                card.classList.add('moving-back');
+                
+                // Step 3: Update immediately, no DOM manipulation
+                setTimeout(() => {
+                    this.updateStack();
+                }, 400);
+            }
+            
+            updateStack() {
+                const currentCard = this.cards[this.currentIndex];
+                
+                // Reset current card and move to back
+                currentCard.classList.remove('moving-back', 'flipped');
+                currentCard.style.zIndex = '0';
+                
+                // Update index with loop
+                this.currentIndex = (this.currentIndex + 1) % this.totalCards;
+                
+                // Restack all cards with new positioning
+                this.restackCards();
+            }
+            
+            updateStackReverse() {
+                const currentCard = this.cards[this.currentIndex];
+                
+                // Reset current card
+                currentCard.classList.remove('flipped');
+                currentCard.style.transform = '';
+                currentCard.style.opacity = '';
+                currentCard.style.zIndex = '0';
+                
+                // Update index with loop (going backwards)
+                this.currentIndex = this.currentIndex === 0 ? this.totalCards - 1 : this.currentIndex - 1;
+                
+                // Restack all cards
+                this.restackCards();
+            }
+            
+            restackCards() {
+                this.cards.forEach((card, index) => {
+                    card.classList.add('restacking');
+                    
+                    if (index === this.currentIndex) {
+                        // New top card
+                        card.style.zIndex = '5';
+                        card.style.transform = 'translateZ(0px) rotateY(0deg) scale(1)';
+                        card.style.opacity = '1';
+                    } else if (index === (this.currentIndex + 1) % this.totalCards) {
+                        card.style.zIndex = '4';
+                        card.style.transform = 'translateZ(-20px) rotateY(0deg) scale(0.95)';
+                        card.style.opacity = '0.8';
+                    } else if (index === (this.currentIndex + 2) % this.totalCards) {
+                        card.style.zIndex = '3';
+                        card.style.transform = 'translateZ(-40px) rotateY(0deg) scale(0.9)';
+                        card.style.opacity = '0.6';
+                    } else if (index === (this.currentIndex + 3) % this.totalCards) {
+                        card.style.zIndex = '2';
+                        card.style.transform = 'translateZ(-60px) rotateY(0deg) scale(0.85)';
+                        card.style.opacity = '0.4';
+                    } else {
+                        card.style.zIndex = '1';
+                        card.style.transform = 'translateZ(-80px) rotateY(0deg) scale(0.8)';
+                        card.style.opacity = '0.2';
+                    }
+                });
+                
+                // Clean up classes after animation
+                setTimeout(() => {
+                    this.cards.forEach(card => card.classList.remove('restacking'));
+                    this.updateProgress();
+                    this.isAnimating = false;
+                }, 400);
+            }
+            
+            updateProgress() {
+                // Update progress dots based on current index
+                this.progressDots.forEach((dot, index) => {
+                    dot.classList.toggle('active', index === this.currentIndex);
+                });
+            }
+        }
+        
+        // Initialize the portfolio stack
+        document.addEventListener('DOMContentLoaded', () => {
+            new PortfolioStack();
+        });
+    </script>
 
     <section id="testimonials" style="padding: 60px 20px; background: #0F0F0F;">
         <h2 style="text-align:center; margin-bottom:40px; font-weight:bold; font-size:2.5rem; background: linear-gradient(135deg, #B7472A 0%, #8D3A1F 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">What People Are Saying</h2>
