@@ -245,7 +245,7 @@
             font-size: 2.5rem;
             text-align: center;
             margin-bottom: 3rem;
-            background: var(--gradient);
+            background: linear-gradient(135deg, #ffffff, #cccccc);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -307,55 +307,7 @@
         }
 
         /* Portfolio Section */
-        .portfolio-grid {
-        display: flex;
-        gap: 1.5rem;
-        overflow-x: auto;
-        scroll-behavior: smooth;
-        padding-bottom: 1rem;
-        }
 
-
-        .portfolio-item {
-        min-width: 400px;
-        max-width: 380px;
-        flex: 0 0 auto;
-        background: var(--surface);
-        border-radius: 15px;
-        overflow: hidden;
-        transition: all 0.3s ease;
-        }
-
-
-        .portfolio-item:hover {
-        transform: scale(1.05);
-        box-shadow: 0 20px 40px rgba(183, 71, 42, 0.3);
-        }
-
-
-        .portfolio-image {
-        width: 100%;
-        height: 160px;
-        object-fit: cover;
-        }
-
-
-        .portfolio-content {
-        padding: 1rem;
-        }
-
-
-        .portfolio-content h3 {
-        color: var(--accent);
-        margin-bottom: 0.5rem;
-        font-size: 1.1rem;
-        }
-
-
-        .portfolio-content p {
-        font-size: 0.9rem;
-        line-height: 1.4;
-        }
 
         /* Team Section */
         .team-grid {
@@ -461,7 +413,6 @@
             }
             
             .services-grid,
-            .portfolio-grid,
             .team-grid {
                 grid-template-columns: 1fr;
             }
@@ -922,129 +873,13 @@
             }
         </style>
         </section>
-        <!-- Premium Background Animation -->
-        <div class="bg-animation">
-            <div class="grid-pattern"></div>
-            <div class="gradient-mesh"></div>
-            <div class="shape"></div>
-            <div class="shape"></div>
-            <div class="shape"></div>
-            <div class="shape"></div>
-            <div class="shape"></div>
-            <div class="shape"></div>
-            <div class="shape"></div>
-            <div class="shape"></div>
-            <div class="shape"></div>
-            <div class="shape"></div>
-            <div class="shape"></div>
-            <div class="shape"></div>
-            <div class="shape"></div>
-            <div class="shape"></div>
-            <div class="shape"></div>
-        </div>
 
         <!-- Portfolio Section -->
         <section id="portfolio" class="section">
-        <h2 class="section-title">Featured Projects</h2>
-        <div class="portfolio-grid" id="portfolioGrid">
-        <div class="portfolio-item">
-        <img src="https://source.unsplash.com/400x300/?ecommerce,website" alt="E-Commerce" class="portfolio-image">
-        <div class="portfolio-content">
-        <h3>TechFlow Commerce</h3>
-        <p>A high-performance e-commerce platform handling 10,000+ daily transactions.</p>
-        </div>
-        </div>
-        <div class="portfolio-item">
-        <img src="https://source.unsplash.com/400x300/?dashboard,analytics" alt="SaaS Dashboard" class="portfolio-image">
-        <div class="portfolio-content">
-        <h3>DataViz Pro</h3>
-        <p>Advanced analytics dashboard for enterprise clients.</p>
-        </div>
-        </div>
-        <div class="portfolio-item">
-        <img src="https://source.unsplash.com/400x300/?dashboard,analytics" alt="SaaS Dashboard" class="portfolio-image">
-        <div class="portfolio-content">
-        <h3>DataViz Pro</h3>
-        <p>Advanced analytics dashboard for enterprise clients.</p>
-        </div>
-        </div>
-        <div class="portfolio-item">
-        <img src="https://cdn.dribbble.com/userupload/18395413/file/original-9f80307f2a627fc2be001edd82438f60.png?format=webp&resize=400x300&vertical=center" alt="SaaS Dashboard" class="portfolio-image">
-        <div class="portfolio-content">
-        <h3>DataViz Pro</h3>
-        <p>Advanced analytics dashboard for enterprise clients.</p>
-        </div>
-        </div>
-        <div class="portfolio-item">
-        <img src="https://cdn.dribbble.com/userupload/18395413/file/original-9f80307f2a627fc2be001edd82438f60.png?format=webp&resize=400x300&vertical=center" alt="Healthcare App" class="portfolio-image">
-        <div class="portfolio-content">
-        <h3>MedConnect</h3>
-        <p>HIPAA-compliant telemedicine platform with secure video calls.</p>
-        </div>
-        </div>
-        <div class="portfolio-item">
-        <img src="https://cdn.dribbble.com/userupload/18395413/file/original-9f80307f2a627fc2be001edd82438f60.png?format=webp&resize=400x300&vertical=center" alt="Fintech Solution" class="portfolio-image">
-        <div class="portfolio-content">
-        <h3>CryptoTrade Hub</h3>
-        <p>Cryptocurrency trading platform with advanced charting and automation.</p>
-        </div>
-        </div>
-        </div>
+            <h2 class="section-title">Featured Projects</h2>
+
         </section>
-
-        <script>
-        // Simple and reliable auto-scroll for portfolio
-        const portfolioGrid = document.getElementById('portfolioGrid');
-
-        if (portfolioGrid) {
-            let scrollAmount = 0;
-            const scrollSpeed = 1; // pixels per interval
-            const intervalTime = 30; // milliseconds
-            const pauseTime = 2000; // pause at end in milliseconds
-            
-            function startScrolling() {
-                const scrollInterval = setInterval(() => {
-                    const maxScroll = portfolioGrid.scrollWidth - portfolioGrid.clientWidth;
-                    
-                    // If no scrollable content, stop
-                    if (maxScroll <= 0) {
-                        clearInterval(scrollInterval);
-                        return;
-                    }
-                    
-                    // Increment scroll position
-                    scrollAmount += scrollSpeed;
-                    portfolioGrid.scrollLeft = scrollAmount;
-                    
-                    // If reached the end, pause and restart
-                    if (scrollAmount >= maxScroll) {
-                        clearInterval(scrollInterval);
-                        
-                        setTimeout(() => {
-                            scrollAmount = 0;
-                            portfolioGrid.scrollLeft = 0;
-                            startScrolling(); // Restart the cycle
-                        }, pauseTime);
-                    }
-                }, intervalTime);
-                
-                return scrollInterval;
-            }
-            
-            // Start the scrolling
-            let currentInterval = startScrolling();
-            
-            // Optional: Pause on hover
-            portfolioGrid.addEventListener('mouseenter', () => {
-                clearInterval(currentInterval);
-            });
-            
-            portfolioGrid.addEventListener('mouseleave', () => {
-                // Resume from current position
-                currentInterval = startScrolling();
-            });
-        }
-        </script>
+        <!-- Portfolio Section -->
 
     <section id="testimonials" style="padding: 60px 20px; background: #0F0F0F;">
         <h2 style="text-align:center; margin-bottom:40px; font-weight:bold; font-size:2.5rem; background: linear-gradient(135deg, #B7472A 0%, #8D3A1F 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">What People Are Saying</h2>
@@ -1230,7 +1065,7 @@
         }, observerOptions);
 
         // Observe all animatable elements
-        document.querySelectorAll('.section-title, .service-card, .portfolio-item, .team-card, .contact-form').forEach(el => {
+        document.querySelectorAll('.section-title, .service-card, .team-card, .contact-form').forEach(el => {
             observer.observe(el);
         });
 
@@ -1238,12 +1073,6 @@
         const serviceCards = document.querySelectorAll('.service-card');
         serviceCards.forEach((card, index) => {
             card.style.transitionDelay = `${index * 0.1}s`;
-        });
-
-        // Staggered animation for portfolio items
-        const portfolioItems = document.querySelectorAll('.portfolio-item');
-        portfolioItems.forEach((item, index) => {
-            item.style.transitionDelay = `${index * 0.2}s`;
         });
 
         // Staggered animation for team cards
