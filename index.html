@@ -633,285 +633,285 @@
 
     <!--PORTFOLIO STYLE-->
     <style>    
-/* Portfolio Section - Fixed */
-#portfolio {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    min-height: 100vh;
-    padding: 6rem 2rem;
-}
+    /* Portfolio Section - Fixed */
+    #portfolio {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        padding: 6rem 2rem;
+    }
 
-.portfolio-container {
-    position: relative;
-    width: 400px;
-    height: 550px;
-    perspective: 1500px;
-    margin: 0 auto;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.card-stack {
-    position: relative;
-    width: 100%;
-    height: 100%;
-}
-
-.portfolio-card {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    transform-style: preserve-3d;
-    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-    cursor: pointer;
-}
-
-/* Only top card visible - hide others */
-.portfolio-card:nth-child(1) {
-    z-index: 5;
-    transform: translateZ(0px) rotateY(0deg);
-    opacity: 1;
-}
-
-.portfolio-card:nth-child(2) {
-    z-index: 4;
-    transform: translateZ(-20px) rotateY(0deg) scale(0.95);
-    opacity: 0; /* Hidden */
-    pointer-events: none;
-}
-
-.portfolio-card:nth-child(3) {
-    z-index: 3;
-    transform: translateZ(-40px) rotateY(0deg) scale(0.9);
-    opacity: 0; /* Hidden */
-    pointer-events: none;
-}
-
-.portfolio-card:nth-child(4) {
-    z-index: 2;
-    transform: translateZ(-60px) rotateY(0deg) scale(0.85);
-    opacity: 0; /* Hidden */
-    pointer-events: none;
-}
-
-.portfolio-card:nth-child(5) {
-    z-index: 1;
-    transform: translateZ(-80px) rotateY(0deg) scale(0.8);
-    opacity: 0; /* Hidden */
-    pointer-events: none;
-}
-
-/* Card faces - Proper backface hiding and solid backgrounds */
-.card-front, .card-back {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    backface-visibility: hidden;
-    -webkit-backface-visibility: hidden;
-    border-radius: 20px;
-    padding: 2.5rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
-}
-
-.card-front {
-    /* Solid front card background */
-    background: linear-gradient(135deg, 
-        rgba(30, 30, 30, 1), 
-        rgba(15, 15, 15, 1)
-    );
-    border: 1px solid rgba(183, 71, 42, 0.5);
-    transform: rotateY(0deg);
-    z-index: 2;
-}
-
-.card-back {
-    /* Solid back card background */
-    background: linear-gradient(135deg, 
-        rgba(183, 71, 42, 0.9), 
-        rgba(30, 30, 30, 1)
-    );
-    border: 1px solid rgba(183, 71, 42, 0.7);
-    transform: rotateY(180deg);
-    z-index: 1;
-}
-
-/* Flipped state */
-.portfolio-card.flipped {
-    transform: rotateY(180deg);
-}
-
-/* Moving to back animation - optimized */
-.portfolio-card.moving-back {
-    transform: translateX(-120%) rotateY(0deg) scale(0.7);
-    opacity: 0;
-    z-index: 0;
-}
-
-/* Smooth restacking */
-.portfolio-card.restacking {
-    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-}
-
-.category {
-    font-size: 0.9rem;
-    color: #FF8A65;
-    font-weight: 500;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    margin-bottom: 1rem;
-}
-
-.card-title {
-    font-size: 2rem;
-    font-weight: 700;
-    line-height: 1.2;
-    margin-bottom: 1.5rem;
-    background: linear-gradient(135deg, #ffffff, #cccccc);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-}
-
-.card-description {
-    font-size: 1.1rem;
-    color: #cccccc;
-    line-height: 1.6;
-    flex-grow: 1;
-}
-
-.portfolio-card .cta-button {
-    display: inline-block;
-    padding: 1rem 2rem;
-    background: linear-gradient(135deg, #B7472A, #8D3A1F);
-    color: white;
-    text-decoration: none;
-    border-radius: 12px;
-    font-weight: 600;
-    text-align: center;
-    transition: all 0.3s ease;
-    box-shadow: 0 10px 30px rgba(183, 71, 42, 0.3);
-    margin-top: 2rem;
-}
-
-.portfolio-card .cta-button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 15px 40px rgba(183, 71, 42, 0.4);
-}
-
-/* Navigation */
-.nav-controls {
-    position: absolute;
-    bottom: -80px;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    gap: 2rem;
-    z-index: 10;
-}
-
-.nav-button {
-    width: 60px;
-    height: 60px;
-    background: linear-gradient(135deg, #B7472A, #8D3A1F);
-    border: none;
-    border-radius: 50%;
-    color: white;
-    font-size: 1.5rem;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 10px 30px rgba(183, 71, 42, 0.3);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.nav-button:hover {
-    transform: translateY(-3px) scale(1.05);
-    box-shadow: 0 15px 40px rgba(183, 71, 42, 0.4);
-}
-
-.nav-button:active {
-    transform: translateY(-1px) scale(0.98);
-}
-
-/* Progress indicator */
-.progress-indicator {
-    position: absolute;
-    bottom: -120px;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    gap: 8px;
-}
-
-.progress-dot {
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.3);
-    transition: all 0.3s ease;
-}
-
-.progress-dot.active {
-    background: #B7472A;
-    box-shadow: 0 0 15px rgba(183, 71, 42, 0.5);
-}
-
-/* Responsive */
-@media (max-width: 768px) {
     .portfolio-container {
-        width: 350px;
-        height: 500px;
+        position: relative;
+        width: 400px;
+        height: 550px;
+        perspective: 1500px;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
-    
+
+    .card-stack {
+        position: relative;
+        width: 100%;
+        height: 100%;
+    }
+
+    .portfolio-card {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        transform-style: preserve-3d;
+        transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        cursor: pointer;
+    }
+
+    /* Only top card visible - hide others */
+    .portfolio-card:nth-child(1) {
+        z-index: 5;
+        transform: translateZ(0px) rotateY(0deg);
+        opacity: 1;
+    }
+
+    .portfolio-card:nth-child(2) {
+        z-index: 4;
+        transform: translateZ(-20px) rotateY(0deg) scale(0.95);
+        opacity: 0; /* Hidden */
+        pointer-events: none;
+    }
+
+    .portfolio-card:nth-child(3) {
+        z-index: 3;
+        transform: translateZ(-40px) rotateY(0deg) scale(0.9);
+        opacity: 0; /* Hidden */
+        pointer-events: none;
+    }
+
+    .portfolio-card:nth-child(4) {
+        z-index: 2;
+        transform: translateZ(-60px) rotateY(0deg) scale(0.85);
+        opacity: 0; /* Hidden */
+        pointer-events: none;
+    }
+
+    .portfolio-card:nth-child(5) {
+        z-index: 1;
+        transform: translateZ(-80px) rotateY(0deg) scale(0.8);
+        opacity: 0; /* Hidden */
+        pointer-events: none;
+    }
+
+    /* Card faces - Proper backface hiding and solid backgrounds */
     .card-front, .card-back {
-        padding: 2rem;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        backface-visibility: hidden;
+        -webkit-backface-visibility: hidden;
+        border-radius: 20px;
+        padding: 2.5rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
     }
-    
+
+    .card-front {
+        /* Solid front card background */
+        background: linear-gradient(135deg, 
+            rgba(30, 30, 30, 1), 
+            rgba(15, 15, 15, 1)
+        );
+        border: 1px solid rgba(183, 71, 42, 0.5);
+        transform: rotateY(0deg);
+        z-index: 2;
+    }
+
+    .card-back {
+        /* Solid back card background */
+        background: linear-gradient(135deg, 
+            rgba(183, 71, 42, 0.9), 
+            rgba(30, 30, 30, 1)
+        );
+        border: 1px solid rgba(183, 71, 42, 0.7);
+        transform: rotateY(180deg);
+        z-index: 1;
+    }
+
+    /* Flipped state */
+    .portfolio-card.flipped {
+        transform: rotateY(180deg);
+    }
+
+    /* Moving to back animation - optimized */
+    .portfolio-card.moving-back {
+        transform: translateX(-120%) rotateY(0deg) scale(0.7);
+        opacity: 0;
+        z-index: 0;
+    }
+
+    /* Smooth restacking */
+    .portfolio-card.restacking {
+        transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    .category {
+        font-size: 0.9rem;
+        color: #FF8A65;
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        margin-bottom: 1rem;
+    }
+
     .card-title {
-        font-size: 1.7rem;
+        font-size: 2rem;
+        font-weight: 700;
+        line-height: 1.2;
+        margin-bottom: 1.5rem;
+        background: linear-gradient(135deg, #ffffff, #cccccc);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
     }
-    
+
     .card-description {
-        font-size: 1rem;
+        font-size: 1.1rem;
+        color: #cccccc;
+        line-height: 1.6;
+        flex-grow: 1;
     }
-}
 
-@media (max-width: 480px) {
-    .portfolio-container {
-        width: 320px;
-        height: 480px;
+    .portfolio-card .cta-button {
+        display: inline-block;
+        padding: 1rem 2rem;
+        background: linear-gradient(135deg, #B7472A, #8D3A1F);
+        color: white;
+        text-decoration: none;
+        border-radius: 12px;
+        font-weight: 600;
+        text-align: center;
+        transition: all 0.3s ease;
+        box-shadow: 0 10px 30px rgba(183, 71, 42, 0.3);
+        margin-top: 2rem;
     }
-    
-    .card-front, .card-back {
-        padding: 1.5rem;
+
+    .portfolio-card .cta-button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 15px 40px rgba(183, 71, 42, 0.4);
     }
-    
-    .card-title {
-        font-size: 1.5rem;
-    }
-    
+
+    /* Navigation */
     .nav-controls {
-        bottom: -60px;
-        gap: 1.5rem;
+        position: absolute;
+        bottom: -80px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        gap: 2rem;
+        z-index: 10;
     }
-    
+
     .nav-button {
-        width: 50px;
-        height: 50px;
-        font-size: 1.2rem;
+        width: 60px;
+        height: 60px;
+        background: linear-gradient(135deg, #B7472A, #8D3A1F);
+        border: none;
+        border-radius: 50%;
+        color: white;
+        font-size: 1.5rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 10px 30px rgba(183, 71, 42, 0.3);
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
-    
+
+    .nav-button:hover {
+        transform: translateY(-3px) scale(1.05);
+        box-shadow: 0 15px 40px rgba(183, 71, 42, 0.4);
+    }
+
+    .nav-button:active {
+        transform: translateY(-1px) scale(0.98);
+    }
+
+    /* Progress indicator */
     .progress-indicator {
-        bottom: -100px;
+        position: absolute;
+        bottom: -120px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        gap: 8px;
     }
-}
+
+    .progress-dot {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.3);
+        transition: all 0.3s ease;
+    }
+
+    .progress-dot.active {
+        background: #B7472A;
+        box-shadow: 0 0 15px rgba(183, 71, 42, 0.5);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+        .portfolio-container {
+            width: 350px;
+            height: 500px;
+        }
+        
+        .card-front, .card-back {
+            padding: 2rem;
+        }
+        
+        .card-title {
+            font-size: 1.7rem;
+        }
+        
+        .card-description {
+            font-size: 1rem;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .portfolio-container {
+            width: 320px;
+            height: 480px;
+        }
+        
+        .card-front, .card-back {
+            padding: 1.5rem;
+        }
+        
+        .card-title {
+            font-size: 1.5rem;
+        }
+        
+        .nav-controls {
+            bottom: -60px;
+            gap: 1.5rem;
+        }
+        
+        .nav-button {
+            width: 50px;
+            height: 50px;
+            font-size: 1.2rem;
+        }
+        
+        .progress-indicator {
+            bottom: -100px;
+        }
+    }
     </style>
 </head>
 <body>
@@ -1174,7 +1174,7 @@
                         <h2 class="card-title">Legal AI Research Assistant</h2>
                         <p class="card-description">Enabled lawyers to instantly search and summarize case documents with context-aware AI, reducing research time by 70%.</p>
                     </div>
-                    <a href="#" class="cta-button">Launch My AI Assistant</a>
+                    <a href="#contact" class="cta-button">Launch My AI Assistant</a>
                 </div>
             </div>
 
@@ -1193,7 +1193,7 @@
                         <h2 class="card-title">AI-Powered Patient Knowledge Hub</h2>
                         <p class="card-description">Delivered a secure AI knowledge hub that improved consultation efficiency by 40% and reduced admin burden.</p>
                     </div>
-                    <a href="#" class="cta-button">Deploy My Healthcare AI</a>
+                    <a href="#contact" class="cta-button">Deploy My Healthcare AI</a>
                 </div>
             </div>
 
@@ -1212,7 +1212,7 @@
                         <h2 class="card-title">AI Compliance & Risk Advisor</h2>
                         <p class="card-description">Automated compliance reviews, cutting manual effort by 60% and reducing human error.</p>
                     </div>
-                    <a href="#" class="cta-button">Secure My Compliance AI</a>
+                    <a href="#contact" class="cta-button">Secure My Compliance AI</a>
                 </div>
             </div>
 
@@ -1231,7 +1231,7 @@
                         <h2 class="card-title">Real Estate Listings & CRM Platform</h2>
                         <p class="card-description">Built a scalable realtor site that increased qualified leads by 40% and streamlined agent workflows.</p>
                     </div>
-                    <a href="#" class="cta-button">Build My Real Estate Platform</a>
+                    <a href="#contact" class="cta-button">Build My Real Estate Platform</a>
                 </div>
             </div>
 
@@ -1250,7 +1250,7 @@
                         <h2 class="card-title">Custom Fashion E-Commerce Storefront</h2>
                         <p class="card-description">Boosted conversion rates by 32% with AI-powered recommendations and a streamlined shopping experience.</p>
                     </div>
-                    <a href="#" class="cta-button">Design My Online Store</a>
+                    <a href="#contact" class="cta-button">Design My Online Store</a>
                 </div>
             </div>
         </div>
