@@ -1274,189 +1274,190 @@
         <!-- Portfolio Section -->
     <script>
         class PortfolioStack {
-            constructor() {
-                this.currentIndex = 0;
-                this.totalCards = 5;
-                this.cards = document.querySelectorAll('.portfolio-card');
-                this.nextButton = document.getElementById('nextButton');
-                this.prevButton = document.getElementById('prevButton');
-                this.progressDots = document.querySelectorAll('.progress-dot');
-                this.isAnimating = false;
-                
-                this.init();
-            }
-            
-            init() {
-                // Add click listeners to cards
-                this.cards.forEach((card, index) => {
-                    card.addEventListener('click', (e) => {
-                        if (index === this.currentIndex && !this.isAnimating) {
-                            this.flipCard(card);
-                        }
-                    });
-                });
-                
-                // Add next button listener
-                this.nextButton.addEventListener('click', () => {
-                    if (!this.isAnimating) {
-                        this.nextCard();
-                    }
-                });
-                
-                // Add prev button listener
-                this.prevButton.addEventListener('click', () => {
-                    if (!this.isAnimating) {
-                        this.prevCard();
-                    }
-                });
-                
-                // Prevent CTA clicks from flipping card
-                document.querySelectorAll('.cta-button').forEach(btn => {
-                    btn.addEventListener('click', (e) => {
-                        e.stopPropagation();
-                    });
-                });
-            }
-            
-            flipCard(card) {
-                if (this.isAnimating) return;
-                
-                this.isAnimating = true;
-                card.classList.toggle('flipped');
-                
-                setTimeout(() => {
-                    this.isAnimating = false;
-                }, 800);
-            }
-            
-            nextCard() {
-                if (this.isAnimating) return;
-                
-                this.isAnimating = true;
-                const currentCard = this.cards[this.currentIndex];
-                
-                // Step 1: Flip back if needed (faster)
-                if (currentCard.classList.contains('flipped')) {
-                    currentCard.classList.remove('flipped');
-                    setTimeout(() => this.slideCardAway(currentCard), 200);
-                } else {
-                    this.slideCardAway(currentCard);
+        constructor() {
+            this.currentIndex = 0;
+            this.cards = Array.from(document.querySelectorAll('.portfolio-card'));
+            this.totalCards = this.cards.length;
+            this.nextButton = document.getElementById('nextButton');
+            this.prevButton = document.getElementById('prevButton');
+            this.progressDots = document.querySelectorAll('.progress-dot');
+            this.isAnimating = false;
+            this.init();
+        }
+
+        init() {
+            // Attach click to all cards but only act when the clicked card is the active one
+            this.cards.forEach(card => {
+            card.addEventListener('click', (e) => {
+                // ignore clicks on CTAs
+                if (e.target.closest('.cta-button')) return;
+
+                if (!this.isAnimating && this.isActiveCard(card)) {
+                this.flipCard(card);
                 }
+            });
+            });
+
+            // Next / Prev
+            if (this.nextButton) this.nextButton.addEventListener('click', () => { if (!this.isAnimating) this.nextCard(); });
+            if (this.prevButton) this.prevButton.addEventListener('click', () => { if (!this.isAnimating) this.prevCard(); });
+
+            // Prevent CTA from bubbling
+            document.querySelectorAll('.cta-button').forEach(btn => {
+            btn.addEventListener('click', (e) => e.stopPropagation());
+            });
+
+            // Initialize visual stack (inline styles)
+            this.restackCards(true);
+        }
+
+        // Use data-index attribute to determine active card
+        isActiveCard(card) {
+            return Number(card.dataset.index) === this.currentIndex;
+        }
+
+        // Flip/unflip the currently active card using inline transforms (reliable)
+        flipCard(card) {
+            if (this.isAnimating) return;
+            this.isAnimating = true;
+
+            const isFlipped = card.classList.contains('flipped');
+
+            if (!isFlipped) {
+            // Flip to back
+            card.classList.add('flipped');
+            // Keep the same depth/scale but rotate on Y
+            card.style.transform = 'translateZ(0px) rotateY(180deg) scale(1)';
+            } else {
+            // Flip back to front
+            card.classList.remove('flipped');
+            card.style.transform = 'translateZ(0px) rotateY(0deg) scale(1)';
             }
-            
-            prevCard() {
-                if (this.isAnimating) return;
-                
-                this.isAnimating = true;
-                const currentCard = this.cards[this.currentIndex];
-                
-                // Step 1: Flip back if needed
-                if (currentCard.classList.contains('flipped')) {
-                    currentCard.classList.remove('flipped');
-                    setTimeout(() => this.slideCardAwayReverse(currentCard), 200);
-                } else {
-                    this.slideCardAwayReverse(currentCard);
-                }
-            }
-            
-            slideCardAwayReverse(card) {
-                // Slide to the right instead of left
-                card.style.transform = 'translateX(120%) rotateY(0deg) scale(0.7)';
-                card.style.opacity = '0';
-                card.style.zIndex = '0';
-                
-                setTimeout(() => {
-                    this.updateStackReverse();
-                }, 400);
-            }
-            
-            slideCardAway(card) {
-                // Step 2: Slide away smoothly
-                card.classList.add('moving-back');
-                
-                // Step 3: Update immediately, no DOM manipulation
-                setTimeout(() => {
-                    this.updateStack();
-                }, 400);
-            }
-            
-            updateStack() {
-                const currentCard = this.cards[this.currentIndex];
-                
-                // Reset current card and move to back
-                currentCard.classList.remove('moving-back', 'flipped');
-                currentCard.style.zIndex = '0';
-                
-                // Update index with loop
-                this.currentIndex = (this.currentIndex + 1) % this.totalCards;
-                
-                // Restack all cards with new positioning
-                this.restackCards();
-            }
-            
-            updateStackReverse() {
-                const currentCard = this.cards[this.currentIndex];
-                
-                // Reset current card
-                currentCard.classList.remove('flipped');
-                currentCard.style.transform = '';
-                currentCard.style.opacity = '';
-                currentCard.style.zIndex = '0';
-                
-                // Update index with loop (going backwards)
-                this.currentIndex = this.currentIndex === 0 ? this.totalCards - 1 : this.currentIndex - 1;
-                
-                // Restack all cards
-                this.restackCards();
-            }
-            
-            restackCards() {
-                this.cards.forEach((card, index) => {
-                    card.classList.add('restacking');
-                    
-                    if (index === this.currentIndex) {
-                        // New top card
-                        card.style.zIndex = '5';
-                        card.style.transform = 'translateZ(0px) rotateY(0deg) scale(1)';
-                        card.style.opacity = '1';
-                    } else if (index === (this.currentIndex + 1) % this.totalCards) {
-                        card.style.zIndex = '4';
-                        card.style.transform = 'translateZ(-20px) rotateY(0deg) scale(0.95)';
-                        card.style.opacity = '0.8';
-                    } else if (index === (this.currentIndex + 2) % this.totalCards) {
-                        card.style.zIndex = '3';
-                        card.style.transform = 'translateZ(-40px) rotateY(0deg) scale(0.9)';
-                        card.style.opacity = '0.6';
-                    } else if (index === (this.currentIndex + 3) % this.totalCards) {
-                        card.style.zIndex = '2';
-                        card.style.transform = 'translateZ(-60px) rotateY(0deg) scale(0.85)';
-                        card.style.opacity = '0.4';
-                    } else {
-                        card.style.zIndex = '1';
-                        card.style.transform = 'translateZ(-80px) rotateY(0deg) scale(0.8)';
-                        card.style.opacity = '0.2';
-                    }
-                });
-                
-                // Clean up classes after animation
-                setTimeout(() => {
-                    this.cards.forEach(card => card.classList.remove('restacking'));
-                    this.updateProgress();
-                    this.isAnimating = false;
-                }, 400);
-            }
-            
-            updateProgress() {
-                // Update progress dots based on current index
-                this.progressDots.forEach((dot, index) => {
-                    dot.classList.toggle('active', index === this.currentIndex);
-                });
+
+            // short lock so repeated clicks don't clash with animation
+            setTimeout(() => { this.isAnimating = false; }, 400);
+        }
+
+        nextCard() {
+            if (this.isAnimating) return;
+            this.isAnimating = true;
+            const currentCard = this.cards[this.currentIndex];
+
+            // If flipped, flip back first then slide
+            if (currentCard.classList.contains('flipped')) {
+            currentCard.classList.remove('flipped');
+            currentCard.style.transform = 'translateZ(0px) rotateY(0deg) scale(1)';
+            // small delay to let flip-back be visible
+            setTimeout(() => this.slideCardAway(currentCard), 220);
+            } else {
+            this.slideCardAway(currentCard);
             }
         }
-        
-        // Initialize the portfolio stack
+
+        prevCard() {
+            if (this.isAnimating) return;
+            this.isAnimating = true;
+            const currentCard = this.cards[this.currentIndex];
+
+            if (currentCard.classList.contains('flipped')) {
+            currentCard.classList.remove('flipped');
+            currentCard.style.transform = 'translateZ(0px) rotateY(0deg) scale(1)';
+            setTimeout(() => this.slideCardAwayReverse(currentCard), 220);
+            } else {
+            this.slideCardAwayReverse(currentCard);
+            }
+        }
+
+        // Slide away to left (forward)
+        slideCardAway(card) {
+            // remove inline transform so CSS moving-back class can control transform
+            card.style.transform = '';
+            card.classList.add('moving-back');
+
+            setTimeout(() => this.updateStack(), 420);
+        }
+
+        // Slide away to right (backwards)
+        slideCardAwayReverse(card) {
+            card.style.transform = 'translateX(120%) rotateY(0deg) scale(0.7)';
+            card.style.opacity = '0';
+            card.style.zIndex = '0';
+
+            setTimeout(() => this.updateStackReverse(), 420);
+        }
+
+        updateStack() {
+            const currentCard = this.cards[this.currentIndex];
+
+            // Clean up current card and send to back
+            currentCard.classList.remove('moving-back', 'flipped');
+            currentCard.style.zIndex = '0';
+            currentCard.style.opacity = '0';
+            currentCard.style.pointerEvents = 'none';
+            currentCard.style.transform = '';
+
+            // Advance index
+            this.currentIndex = (this.currentIndex + 1) % this.totalCards;
+
+            // Restack visuals
+            this.restackCards();
+        }
+
+        updateStackReverse() {
+            const currentCard = this.cards[this.currentIndex];
+
+            // Reset current card
+            currentCard.classList.remove('flipped');
+            currentCard.style.transform = '';
+            currentCard.style.opacity = '';
+            currentCard.style.zIndex = '0';
+            currentCard.style.pointerEvents = 'none';
+
+            // Move index backwards
+            this.currentIndex = this.currentIndex === 0 ? this.totalCards - 1 : this.currentIndex - 1;
+
+            this.restackCards();
+        }
+
+        restackCards(initial = false) {
+            // For simplicity we show only the active (currentIndex) card fully and hide others.
+            this.cards.forEach((card, idx) => {
+            card.classList.add('restacking');
+
+            if (idx === this.currentIndex) {
+                card.style.zIndex = '5';
+                card.style.transform = 'translateZ(0px) rotateY(0deg) scale(1)';
+                card.style.opacity = '1';
+                card.style.pointerEvents = 'auto';
+                card.style.cursor = 'pointer';
+            } else {
+                // Simple depth stepping to give stack look
+                const depth = Math.min(80, (idx - this.currentIndex + this.totalCards) % this.totalCards * 20);
+                card.style.zIndex = '1';
+                card.style.transform = `translateZ(-${depth}px) rotateY(0deg) scale(${1 - depth / 400})`;
+                card.style.opacity = '0';
+                card.style.pointerEvents = 'none';
+                card.style.cursor = 'default';
+                card.classList.remove('flipped'); // ensure others aren't flipped
+            }
+            });
+
+            // small timeout to remove the restacking flag and unlock animation
+            setTimeout(() => {
+            this.cards.forEach(card => card.classList.remove('restacking'));
+            this.updateProgress();
+            this.isAnimating = false;
+            }, initial ? 0 : 420);
+        }
+
+        updateProgress() {
+            this.progressDots.forEach((dot, i) => dot.classList.toggle('active', i === this.currentIndex));
+        }
+        }
+
+        // Initialize
         document.addEventListener('DOMContentLoaded', () => {
-            new PortfolioStack();
+        new PortfolioStack();
         });
     </script>
 
